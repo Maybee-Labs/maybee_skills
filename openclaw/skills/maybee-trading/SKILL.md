@@ -8,6 +8,12 @@ owner: maybee
 
 # maybee-trading (OpenClaw)
 
+## Endpoint Guidance
+
+- Production API base URL: `https://api.maybee.ai`
+- All API paths below are relative to this base URL.
+- Do not use localhost endpoints in production skill execution.
+
 ## Allowed APIs
 
 - `GET /maybee/developers/overview`

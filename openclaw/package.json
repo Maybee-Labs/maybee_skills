@@ -10,6 +10,11 @@
         "type": "skill",
         "name": "maybee-trading",
         "path": "./skills/maybee-trading"
+      },
+      {
+        "type": "skill",
+        "name": "maybee-social",
+        "path": "./skills/maybee-social"
       }
     ]
   }

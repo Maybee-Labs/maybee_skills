@@ -1,0 +1,13 @@
+{
+  "skill": "maybee-social",
+  "task": "Execute delegated social action on MayBee",
+  "meta": {
+    "action": "event_comment",
+    "eventId": "ZvEKvwR80D",
+    "postId": "",
+    "parentCommentId": "",
+    "content": "I expect this outcome to stay above 55% due to continued onchain volume growth.",
+    "media": [],
+    "idempotencyKey": "soc_evt_comment_001"
+  }
+}

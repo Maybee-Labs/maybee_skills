@@ -9,6 +9,8 @@
 - `openclaw/index.ts`
 - `openclaw/skills/maybee-trading/SKILL.md`
 - `openclaw/skills/maybee-trading/request.template.json`
+- `openclaw/skills/maybee-social/SKILL.md`
+- `openclaw/skills/maybee-social/request.template.json`
 
 ## Quick Install (Local Path First)
 
