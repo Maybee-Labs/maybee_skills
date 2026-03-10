@@ -1,0 +1,16 @@
+{
+  "name": "@maybee/openclaw-plugin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "openclaw": {
+    "extensions": [
+      {
+        "type": "skill",
+        "name": "maybee-trading",
+        "path": "./skills/maybee-trading"
+      }
+    ]
+  }
+}

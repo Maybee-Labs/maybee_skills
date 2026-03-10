@@ -1,39 +1,29 @@
 # maybee_skills
 
-`maybee_skills` is the open-source Skill template repository for MayBee.
-It contains cross-ecosystem skill definitions and integration request examples
-for OpenClaw, Claude, OpenAI, and Cursor.
-
-## Why Separate Repo
-
-- `maybee_server` is a closed-source business repository
-- Skill templates can evolve independently and be open-source friendly
-- Third-party integrators can consume templates without accessing private server code
+`maybee_skills` is an OpenClaw-only skill plugin template repository for MayBee.
 
 ## Structure
 
-- `openclaw/maybee-trading/`
-- `claude/maybee-trading/`
-- `openai/maybee-trading/`
-- `cursor/maybee-trading/`
+- `openclaw/openclaw.plugin.json`
+- `openclaw/package.json`
+- `openclaw/index.ts`
+- `openclaw/skills/maybee-trading/SKILL.md`
+- `openclaw/skills/maybee-trading/request.template.json`
 
-Each directory includes:
+## Quick Install (Local Path First)
 
-- `SKILL.md`: Platform-specific skill definition and behavior constraints
-- `request.template.json`: Minimal runnable request template
+```bash
+npm install /absolute/path/to/maybee_skills/openclaw
+```
 
-## Unified Execution Contract
+## NPM Install (Reserved Format)
 
-Skill execution relies on the same delegated MayBee APIs:
+```bash
+npm install @maybee/openclaw-plugin@latest
+```
 
-- `GET /maybee/developers/overview`
-- `GET /maybee/developers/quickstart`
-- `GET /maybee/agent/skills/spec`
-- `POST /maybee/agent/trade/execute`
+## Direct Path References (Backend Friendly)
 
-Unified status values:
-
-- `success`
-- `accepted_pending`
-- `rejected_policy`
-- `trade_ok_report_failed`
+- Skill definition path: `openclaw/skills/maybee-trading/SKILL.md`
+- Request template path: `openclaw/skills/maybee-trading/request.template.json`
+- Plugin manifest path: `openclaw/openclaw.plugin.json`

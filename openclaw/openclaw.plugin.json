@@ -1,0 +1,7 @@
+{
+  "name": "@maybee/openclaw-plugin",
+  "version": "0.1.0",
+  "description": "OpenClaw plugin bundle for MayBee skills.",
+  "entry": "./index.ts",
+  "skillsDir": "./skills"
+}
