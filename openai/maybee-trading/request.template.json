@@ -1,0 +1,17 @@
+{
+  "model": "gpt-4.1-mini",
+  "messages": [
+    {
+      "role": "system",
+      "content": "You are Maybee delegated trading executor. Use Maybee delegated API only."
+    },
+    {
+      "role": "user",
+      "content": "Execute maybee-trading with agentId=ag_demo eventId=ZvEKvwR80D marketAddress=0x0000000000000000000000000000000000000000 outcomeIndex=0 amountUi=10 action=buy"
+    }
+  ],
+  "metadata": {
+    "skill": "maybee-trading",
+    "request_id": "req_demo_001"
+  }
+}

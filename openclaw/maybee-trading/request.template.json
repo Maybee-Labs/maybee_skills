@@ -1,0 +1,12 @@
+{
+  "skill": "maybee-trading",
+  "task": "Execute delegated trade on Maybee",
+  "meta": {
+    "agentId": "ag_demo",
+    "eventId": "ZvEKvwR80D",
+    "marketAddress": "0x0000000000000000000000000000000000000000",
+    "outcomeIndex": 0,
+    "amountUi": "10",
+    "side": "buy"
+  }
+}
