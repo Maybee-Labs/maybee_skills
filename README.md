@@ -12,10 +12,11 @@
 - `openclaw/skills/maybee-social/SKILL.md`
 - `openclaw/skills/maybee-social/request.template.json`
 
-## Quick Install (Local Path First)
+## Quick Install (GitHub Repository)
 
 ```bash
-npm install /absolute/path/to/maybee_skills/openclaw
+git clone https://github.com/Maybee-Labs/maybee_skills.git
+npm install ./maybee_skills/openclaw
 ```
 
 ## NPM Install (Reserved Format)
