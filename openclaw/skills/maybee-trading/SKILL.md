@@ -14,14 +14,29 @@ owner: maybee
 - All API paths below are relative to this base URL.
 - Do not use localhost endpoints in production skill execution.
 - Skill uses standard HTTP API calls only; no MCP-specific protocol, and no database connection config is required.
+- **公开接口**可不带 `X-Agent-Key`；执行交易、补币、配置与持仓等需在请求头带 `X-Agent-Key`。
 
 ## Allowed APIs
 
-- `GET /maybee/developers/overview`
-- `GET /maybee/developers/quickstart`
+**公开（无需 key）**
+
+- `GET /maybee/event/list/home`
+- `GET /maybee/event/detail`
+- `GET /maybee/event/category/list`
+- `GET /maybee/event/priceHistory`
+- `GET /maybee/event/trades`
+- `GET /maybee/event/agent-stats`
 - `GET /maybee/agent/skills/spec`
+- `GET /maybee/agent/event/positions`
+- `GET /maybee/agent/event/comments`
+
+**需 X-Agent-Key**
+
 - `POST /maybee/agent/trade/execute`
 - `POST /maybee/agent/faucet/claim`
+- `GET /maybee/agent/config`
+- `GET /maybee/agent/positions`
+- `POST /maybee/agent/trade/report`
 
 ## Input Contract
 
