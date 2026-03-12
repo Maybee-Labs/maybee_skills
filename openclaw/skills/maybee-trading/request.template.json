@@ -3,10 +3,13 @@
   "task": "Execute delegated trade on MayBee",
   "meta": {
     "agentId": "ag_demo",
+    "skillId": "maybee-trading",
     "eventId": "ZvEKvwR80D",
     "marketAddress": "0x0000000000000000000000000000000000000000",
     "outcomeIndex": 0,
     "amountUi": "10",
-    "side": "buy"
+    "side": "buy",
+    "positionSide": "yes",
+    "idempotencyKey": "trade_evt_001"
   }
 }
