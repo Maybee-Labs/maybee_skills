@@ -15,6 +15,8 @@ owner: maybee
 - Do not use localhost endpoints in production skill execution.
 - Skill uses standard HTTP API calls only; no MCP-specific protocol, and no database connection config is required.
 - **公开接口**可不带 `X-Agent-Key`；执行交易、补币、配置与持仓等需在请求头带 `X-Agent-Key`。
+- Call execute endpoints **directly** (no runtime/execute wrapper). Required headers: `Content-Type: application/json`, `X-Agent-Key: <your_agent_api_key>`. No extra headers (e.g. X-Agent-Provider, X-Skill) are required.
+- The MayBee API expects **flat JSON** in the request body. Do **not** send `task`/`meta` as the body — the server will respond with `rejected_policy` and `reason: "invalid_json_body"`.
 
 ## Allowed APIs
 
@@ -38,19 +40,70 @@ owner: maybee
 - `GET /maybee/agent/positions`
 - `POST /maybee/agent/trade/report`
 
-## Input Contract
+## Input Contract (skill invocation)
 
-- `task`: User task description
-- `meta.agentId`: Target agent
-- `meta.eventId`: Target event
-- `meta.marketAddress`: Market address
-- `meta.outcomeIndex`: Outcome index
-- `meta.amountUi`: Trade amount (UI precision)
-- `meta.side`: Trade direction, `buy` or `sell` (alias of `action`)
-- `meta.positionSide`: Position direction, `yes` or `no`
-- `meta.action`: Optional combined action, supports `buy`/`sell` or `buy_yes`/`buy_no`/`sell_yes`/`sell_no`
-- `meta.skillId`: Skill identifier for audit trail
-- `meta.idempotencyKey`: Optional idempotency key for safe retry
+When the skill is invoked (e.g. by OpenClaw), input may use `task` and `meta`; map from that to the flat API body below.
+
+## API request body (MayBee backend)
+
+The MayBee API expects **flat JSON**. Do **not** send `task`/`meta` as the body.
+
+### POST /maybee/agent/trade/execute
+
+**Request body (flat JSON):**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `eventId` | string | Yes | Event id (e.g. hashids) |
+| `marketAddress` | string | Yes | Market contract address |
+| `outcomeIndex` | number | Yes | Outcome index (0-based) |
+| `amountUi` | string | Yes | Amount, 6 decimal precision |
+| `skillId` | string | Yes | Skill identifier (e.g. `maybee-trading`) |
+| `action` | string | No | `buy` or `sell`; also supports `buy_yes`/`buy_no`/`sell_yes`/`sell_no` |
+| `side` | string | No | Alias of action: `buy` or `sell` |
+| `positionSide` | string | No | `yes` or `no` |
+| `isYes` | bool | No | `true` = Yes, `false` = No |
+| `skillVersion` | string | No | e.g. `0.1.0` |
+| `releaseChannel` | string | No | e.g. `stable` |
+| `idempotencyKey` | string | No | Optional idempotency key for retries |
+
+**Example request:**
+
+```json
+{
+  "eventId": "PajNal8036",
+  "marketAddress": "0x...",
+  "outcomeIndex": 0,
+  "amountUi": "10.000000",
+  "action": "buy",
+  "skillId": "maybee-trading",
+  "idempotencyKey": "trade_evt_001"
+}
+```
+
+**Example response (wrapped in gateway `data`):**
+
+```json
+{
+  "code": 0,
+  "msg": "Success",
+  "data": {
+    "status": "success",
+    "executionId": "...",
+    "duplicate": false,
+    "reason": "...",
+    "idempotencyKey": "trade_evt_001"
+  }
+}
+```
+
+On `rejected_policy`, see `data.reason` (e.g. `invalid_json_body`, `insufficient_honey_balance_claim_faucet`). If reason is `insufficient_honey_balance_claim_faucet`, call `POST /maybee/agent/faucet/claim` once then retry with the same `idempotencyKey`.
+
+### POST /maybee/agent/faucet/claim
+
+**Request body:** Empty object `{}` or no body. Headers: `Content-Type: application/json`, `X-Agent-Key: <api_key>`.
+
+**Example response `data`:** `hash`, `usdtAmount`, `mainAmount`, `walletAddress`.
 
 ## Restrictions
 
